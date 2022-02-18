@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM, {BrowserRouter as Router} from 'react-dom';
+import ReactDOM from 'react-dom';
+import { Routes, Route, Link } from "react-router-dom";
+
 const App = () => {
   const [posts, setPosts] = useState([]);
 
@@ -21,7 +23,7 @@ const App = () => {
       <div key={idx}>
         <h3>{elem.title}</h3>
         <p>Seller: {elem.author.username}</p>
-        <h4>Location: {elem.location}</h4>
+        <p>Location: {elem.location}</p>
         <p>{elem.description}</p>
         <p>Price: {elem.price}</p>
       </div>
