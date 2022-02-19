@@ -1,40 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import { Posts, Home, LogIn, Account } from "./components";
 
 const App = () => {
-  const [posts, setPosts] = useState([]);
+  const [token, setToken] = useState("");
+  const [guest, setGuest] = useState({});
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const resp = await fetch("https://strangers-things.herokuapp.com/api/2111-CSU-RM-WEB-PT/posts/");
-      const result = await resp.json();
-      const postData = result.data.posts;
-      setPosts(postData);
-    }
-    fetchPosts();
-  },[])
+  return (
+    <main>
+      <h1>Stranger Things</h1>
+      <Link to="/">Home</Link>
+      <Link to="/posts">Posts</Link>
+      <Link to="/login">Log In</Link>
+      <Link to="/account">Account</Link>
+      <br />
+      <Route exact path="/">
+        <Home guest={guest} />
+      </Route>
+      <Route exact path="/posts">
+        <Posts />
+      </Route>
+      <Route exact path="/login">
+        <LogIn />
+      </Route>
+      <Route path="/account/:method">
+        <Account setToken={setToken} token={token} />
+      </Route>
+    </main>
+  );
+};
 
-  return (<>
-  <h1>Stranger Things</h1>
-  <h2>Posts</h2>
-  {posts && posts.map((elem, idx)=> {
-    return (
-      <div key={idx}>
-        <h3>{elem.title}</h3>
-        <p>Seller: {elem.author.username}</p>
-        <p>Location: {elem.location}</p>
-        <p>{elem.description}</p>
-        <p>Price: {elem.price}</p>
-      </div>
-    )
-  })}
-  </>
-  )
-}
+// const Home = () => <h4>This is my home</h4>
+// const Posts = () => <h4>These are posts</h4>
+// const LogIn = () => <h4>This is where you Log in</h4>
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Router>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Router>,
+  document.getElementById("root")
 );
