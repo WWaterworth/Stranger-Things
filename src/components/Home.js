@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
-const Home = () => <h4>Welcome to Stranger Things</h4>
+const Home = ({ guest }) => <h4>Welcome to Stranger Things {guest}</h4>;
 
 export default Home;

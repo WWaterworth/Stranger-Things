@@ -5,7 +5,7 @@ import { Posts, Home, LogIn, Account } from "./components";
 
 const App = () => {
   const [token, setToken] = useState("");
-  const [guest, setGuest] = useState({});
+  const [guest, setGuest] = useState("");
 
   return (
     <main>
@@ -13,7 +13,7 @@ const App = () => {
       <Link to="/">Home</Link>
       <Link to="/posts">Posts</Link>
       <Link to="/login">Log In</Link>
-      <Link to="/account">Account</Link>
+      <Link to="/account/login">Account</Link>
       <br />
       <Route exact path="/">
         <Home guest={guest} />
@@ -25,7 +25,7 @@ const App = () => {
         <LogIn />
       </Route>
       <Route path="/account/:method">
-        <Account setToken={setToken} token={token} />
+        <Account setToken={setToken} setGuest={setGuest} />
       </Route>
     </main>
   );

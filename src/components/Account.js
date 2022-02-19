@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { BASE_URL } from "./const";
 
-const Account = ({ setToken, token }) => {
+const Account = ({ setToken, setGuest }) => {
   const params = useParams();
+  const history = useHistory();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,14 +28,18 @@ const Account = ({ setToken, token }) => {
           console.log("log in result", result);
           console.log("token", result.data.token);
           setToken(result.data.token);
-          getGuest();
+          getGuest(result.data.token);
+
+          if (result.data.token) {
+            history.push("/");
+          }
         });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getGuest = async (event) => {
+  const getGuest = async (token) => {
     await fetch(`${BASE_URL}/users/me`, {
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +48,9 @@ const Account = ({ setToken, token }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        console.log("user data result", result);
+        console.log("username from getGuest", result.data.username);
+        setGuest(result.data.username);
       })
       .catch(console.error);
   };
