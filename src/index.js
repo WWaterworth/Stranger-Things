@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Link, Route, BrowserRouter as Router } from "react-router-dom";
-import { Posts, Home, Profile, Account } from "./components";
+import { AddPost, Posts, Home, Profile, Account } from "./components";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -19,6 +19,7 @@ const App = () => {
         <Home guest={guest} />
       </Route>
       <Route exact path="/posts">
+        <AddPost token={token} />
         <Posts />
       </Route>
       <Route exact path="/profile">

@@ -25,8 +25,6 @@ const Account = ({ setToken, setGuest }) => {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log("log in result", result);
-          console.log("token", result.data.token);
           setToken(result.data.token);
           getGuest(result.data.token);
 
@@ -48,8 +46,6 @@ const Account = ({ setToken, setGuest }) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("user data result", result);
-        console.log("username from getGuest", result.data.username);
         setGuest(result.data.username);
       })
       .catch(console.error);
