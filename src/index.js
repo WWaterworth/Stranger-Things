@@ -6,8 +6,7 @@ import { AddPost, Posts, Home, Profile, Account } from "./components";
 const App = () => {
   const [token, setToken] = useState("");
   const [guest, setGuest] = useState("");
-
-  const getPosts = () => {};
+  const [posts, setPosts] = useState([]);
 
   return (
     <main>
@@ -21,8 +20,8 @@ const App = () => {
         <Home guest={guest} />
       </Route>
       <Route exact path="/posts">
-        <AddPost token={token} />
-        <Posts />
+        <AddPost posts={posts} setPosts={setPosts} token={token} />
+        <Posts posts={posts} setPosts={setPosts} />
       </Route>
       <Route exact path="/profile">
         <Profile />
