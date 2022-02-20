@@ -9,30 +9,67 @@ const AddPost = ({ token }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    await fetch(`${BASE_URL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        post: {
+          title: title,
+          description: description,
+          price: price,
+          willDeliver: deliver,
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch(console.error);
   };
 
   return (
     <>
       <h1>Add a new Post</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="title"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        />
-        <input
-          type="text"
-          placeholder="description"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        />
-        <input
-          type="text"
-          placeholder="price"
-          onChange={(e) => setPrice(e.target.value)}
-          value={price}
-        />
+        <label>
+          Post Title:
+          <br />
+          <input
+            type="text"
+            placeholder="title"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+        </label>
+        <br />
+        <label>
+          {" "}
+          Post Description:
+          <br />
+          <input
+            type="text"
+            placeholder="description"
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+          />
+        </label>
+        <br />
+        <label>
+          {" "}
+          Item Price:
+          <br />
+          <input
+            type="text"
+            placeholder="price"
+            onChange={(e) => setPrice(e.target.value)}
+            value={price}
+          />
+        </label>
+        <br />
         <input
           type="checkbox"
           onChange={(e) =>

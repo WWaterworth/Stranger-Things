@@ -7,6 +7,8 @@ const App = () => {
   const [token, setToken] = useState("");
   const [guest, setGuest] = useState("");
 
+  const getPosts = () => {};
+
   return (
     <main>
       <h1>Stranger Things</h1>
