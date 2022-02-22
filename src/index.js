@@ -7,6 +7,8 @@ const App = () => {
   const [token, setToken] = useState("");
   const [guest, setGuest] = useState("");
   const [posts, setPosts] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userId, setUserId] = useState("");
 
   return (
     <main>
@@ -21,13 +23,25 @@ const App = () => {
       </Route>
       <Route exact path="/posts">
         <AddPost posts={posts} setPosts={setPosts} token={token} />
-        <Posts posts={posts} setPosts={setPosts} />
+        <Posts
+          posts={posts}
+          setPosts={setPosts}
+          loggedIn={loggedIn}
+          userId={userId}
+          token={token}
+        />
       </Route>
       <Route exact path="/profile">
         <Profile />
       </Route>
       <Route path="/account/:method">
-        <Account setToken={setToken} setGuest={setGuest} />
+        <Account
+          setToken={setToken}
+          setGuest={setGuest}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          setUserId={setUserId}
+        />
       </Route>
     </main>
   );

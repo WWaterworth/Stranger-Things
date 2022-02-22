@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { BASE_URL } from "./const";
 
-const Account = ({ setToken, setGuest }) => {
+const Account = ({ setToken, setGuest, setLoggedIn, setUserId, loggedIn }) => {
   const params = useParams();
   const history = useHistory();
   const [username, setUserName] = useState("");
@@ -27,8 +27,8 @@ const Account = ({ setToken, setGuest }) => {
         .then((result) => {
           setToken(result.data.token);
           getGuest(result.data.token);
-
           if (result.data.token) {
+            setLoggedIn(true);
             history.push("/");
           }
         });
@@ -47,6 +47,8 @@ const Account = ({ setToken, setGuest }) => {
       .then((response) => response.json())
       .then((result) => {
         setGuest(result.data.username);
+        console.log(result.data._id);
+        setUserId(result.data._id);
       })
       .catch(console.error);
   };
@@ -54,28 +56,44 @@ const Account = ({ setToken, setGuest }) => {
   return (
     <>
       <h1>Account</h1>
-      <div>This is the {params.method} page</div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={(event) => {
-            setUserName(event.target.value);
-          }}
-        ></input>
-        <hr></hr>
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-        ></input>
-        <hr></hr>
-        <button type="submit">Submit</button>
-      </form>
+      {loggedIn ? null : <div>This is the {params.method} page</div>}
+      {loggedIn ? (
+        <form onSubmit={(e) => e.preventDefault()}>
+          <h2>You are already logged in</h2>
+          <button
+            type="submit"
+            onClick={() => {
+              setLoggedIn(false);
+              setGuest("");
+              setToken("");
+            }}
+          >
+            Logout
+          </button>
+        </form>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="username"
+            value={username}
+            onChange={(event) => {
+              setUserName(event.target.value);
+            }}
+          ></input>
+          <hr></hr>
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          ></input>
+          <hr></hr>
+          <button type="submit">Submit</button>
+        </form>
+      )}
     </>
   );
 };

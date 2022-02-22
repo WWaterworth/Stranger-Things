@@ -32,11 +32,13 @@ const AddPost = ({ token, posts, setPosts }) => {
       })
       .catch(console.error);
 
-    const postResp = await fetch(`${BASE_URL}/posts`);
-    const result = await postResp.json();
-    const postData = result.data.posts;
-    console.log(result);
-    setPosts(postData);
+    const reRenderPosts = async () => {
+      const postResp = await fetch(`${BASE_URL}/posts`);
+      const result = await postResp.json();
+      const postData = result.data.posts;
+      setPosts(postData);
+    };
+    reRenderPosts();
   };
 
   return (
