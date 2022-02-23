@@ -76,7 +76,6 @@ const Profile = ({ token, loggedIn, userId }) => {
             return null;
           }
         })}
-      <h4>Your messages</h4>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { BASE_URL } from "./const";
+import { TextInputForm } from "./TextInputForm";
 
 const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
   useEffect(() => {
@@ -14,24 +15,24 @@ const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
     fetchPosts();
   }, [setPosts]);
 
-  const deletePost = async (postId) => {
-    await fetch(`${BASE_URL}/posts/${postId}`, {
-      method: "DELETE",
+  const sendMessage = async (postId, message, token) => {
+    fetch(`${BASE_URL}/posts/${postId}/messages`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({
+        message: {
+          content: `${message}`,
+        },
+      }),
     })
       .then((response) => response.json())
-      .then((result) => {})
+      .then((result) => {
+        console.log(result);
+      })
       .catch(console.error);
-    const reRenderPosts = async () => {
-      const postResp = await fetch(`${BASE_URL}/posts`);
-      const result = await postResp.json();
-      const postData = result.data.posts;
-      setPosts(postData);
-    };
-    reRenderPosts();
   };
 
   return (
@@ -46,10 +47,22 @@ const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
               <p>Location: {elem.location}</p>
               <p>{elem.description}</p>
               <p>Price: {elem.price}</p>
-              {loggedIn && elem.author._id === userId ? (
-                <button type="submit" onClick={() => deletePost(elem._id)}>
-                  Delete
-                </button>
+              {loggedIn && userId !== elem.author._id ? (
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                  }}
+                >
+                  <TextInputForm
+                    buttonText={"Submit"}
+                    id={elem._id}
+                    label={"Send message about this post to: "}
+                    placeholder={"Your message here"}
+                    handleClick={sendMessage}
+                    token={token}
+                    author={elem.author.username}
+                  />
+                </form>
               ) : null}
             </div>
           );
