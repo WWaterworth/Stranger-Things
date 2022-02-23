@@ -19,7 +19,7 @@ const App = () => {
       <Link to="/account/login"> Log In/Register</Link>
       <br />
       <Route exact path="/">
-        <Home guest={guest} />
+        <Home guest={guest} loggedIn={loggedIn} token={token} />
       </Route>
       <Route exact path="/posts">
         <AddPost posts={posts} setPosts={setPosts} token={token} />

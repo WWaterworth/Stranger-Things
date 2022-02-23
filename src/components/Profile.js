@@ -4,6 +4,34 @@ import { BASE_URL } from "./const";
 const Profile = ({ token, loggedIn, userId }) => {
   const [userPosts, setUserPosts] = useState([]);
 
+  const reRenderUserPosts = async () => {
+    const resp = await fetch(`${BASE_URL}/posts`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await resp.json();
+    const userPostData = result.data.posts;
+    setUserPosts(userPostData);
+  };
+
+  const deletePost = async (postId) => {
+    await fetch(`${BASE_URL}/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {})
+      .catch(console.error);
+
+    reRenderUserPosts();
+  };
+
   useEffect(() => {
     try {
       const fetchUserPosts = async () => {
@@ -17,26 +45,12 @@ const Profile = ({ token, loggedIn, userId }) => {
         const result = await resp.json();
         const userPostData = result.data.posts;
         setUserPosts(userPostData);
-        console.log(userPostData);
       };
       fetchUserPosts();
     } catch (error) {
       console.log(error);
     }
   }, [setUserPosts, token]);
-
-  const deletePost = async (postId) => {
-    await fetch(`${BASE_URL}/posts/${postId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {})
-      .catch(console.error);
-  };
 
   return (
     <>
@@ -45,7 +59,7 @@ const Profile = ({ token, loggedIn, userId }) => {
         userPosts.map((elem) => {
           if (loggedIn && elem.isAuthor === true) {
             return (
-              <div key={elem.id}>
+              <div key={elem._id}>
                 <h3>{elem.title}</h3>
                 <p>Seller: {elem.author.username}</p>
                 <p>Location: {elem.location}</p>
@@ -58,8 +72,11 @@ const Profile = ({ token, loggedIn, userId }) => {
                 ) : null}
               </div>
             );
+          } else {
+            return null;
           }
         })}
+      <h4>Your messages</h4>
     </>
   );
 };
