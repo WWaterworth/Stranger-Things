@@ -23,9 +23,7 @@ const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
       },
     })
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) => {})
       .catch(console.error);
     const reRenderPosts = async () => {
       const postResp = await fetch(`${BASE_URL}/posts`);

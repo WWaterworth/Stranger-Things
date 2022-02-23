@@ -47,7 +47,6 @@ const Account = ({ setToken, setGuest, setLoggedIn, setUserId, loggedIn }) => {
       .then((response) => response.json())
       .then((result) => {
         setGuest(result.data.username);
-        console.log(result.data._id);
         setUserId(result.data._id);
       })
       .catch(console.error);

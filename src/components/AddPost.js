@@ -27,9 +27,7 @@ const AddPost = ({ token, posts, setPosts }) => {
       }),
     })
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) => {})
       .catch(console.error);
 
     const reRenderPosts = async () => {

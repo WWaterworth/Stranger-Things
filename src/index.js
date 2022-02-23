@@ -32,7 +32,7 @@ const App = () => {
         />
       </Route>
       <Route exact path="/profile">
-        <Profile />
+        <Profile loggedIn={loggedIn} token={token} userId={userId} />
       </Route>
       <Route path="/account/:method">
         <Account
