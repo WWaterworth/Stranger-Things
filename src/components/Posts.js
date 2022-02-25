@@ -64,6 +64,7 @@ const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
                   />
                 </form>
               ) : null}
+              <hr />
             </div>
           );
         })}

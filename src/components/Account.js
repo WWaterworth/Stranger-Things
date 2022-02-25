@@ -55,7 +55,7 @@ const Account = ({ setToken, setGuest, setLoggedIn, setUserId, loggedIn }) => {
   return (
     <>
       <h1>Account</h1>
-      {loggedIn ? null : <div>This is the {params.method} page</div>}
+      {loggedIn ? null : <div>Welcome, {params.method} below:</div>}
       {loggedIn ? (
         <form onSubmit={(e) => e.preventDefault()}>
           <h2>You are already logged in</h2>
@@ -91,6 +91,11 @@ const Account = ({ setToken, setGuest, setLoggedIn, setUserId, loggedIn }) => {
           ></input>
           <hr></hr>
           <button type="submit">Submit</button>
+          {!loggedIn ? (
+            <button onClick={() => history.push("/account/register")}>
+              Register
+            </button>
+          ) : null}
         </form>
       )}
     </>

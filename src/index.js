@@ -16,10 +16,10 @@ const App = () => {
       <Link to="/">Home | </Link>
       <Link to="/posts">Posts | </Link>
       <Link to="/profile">Profile | </Link>
-      <Link to="/account/login"> Log In/Register</Link>
+      <Link to="/account/login">Account</Link>
       <br />
       <Route exact path="/">
-        <Home guest={guest} loggedIn={loggedIn} token={token} />
+        <Home guest={guest} loggedIn={loggedIn} token={token} userId={userId} />
       </Route>
       <Route exact path="/posts">
         <AddPost posts={posts} setPosts={setPosts} token={token} />
