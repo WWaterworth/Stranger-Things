@@ -56,7 +56,7 @@ const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
                   <TextInputForm
                     buttonText={"Submit"}
                     id={elem._id}
-                    label={"Send message about this post to: "}
+                    label={"Send message about this post "}
                     placeholder={"Your message here"}
                     handleClick={sendMessage}
                     token={token}
