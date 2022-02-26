@@ -1,0 +1,26 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: cornflowerblue;
+}
+
+.logo {
+  padding-left: 1em;
+  font-family: cursive;
+  font-size: 2.5em;
+}
+
+nav {
+  padding-right: 5em;
+  font-size: 1.3em;
+}

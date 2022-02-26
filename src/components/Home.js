@@ -3,7 +3,6 @@ import { BASE_URL } from "./const";
 
 const Home = ({ guest, loggedIn, token, userId }) => {
   const [messages, setMessages] = useState([]);
-  console.log(messages);
 
   useEffect(() => {
     const fetchUserData = async () => {
