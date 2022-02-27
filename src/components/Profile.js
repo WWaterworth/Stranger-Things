@@ -54,7 +54,7 @@ const Profile = ({ token, loggedIn, userId }) => {
 
   return (
     <>
-      <h4>Your posts</h4>
+      <h2>Your posts</h2>
       {userPosts &&
         userPosts.map((elem) => {
           if (loggedIn && elem.isAuthor === true) {
@@ -70,6 +70,7 @@ const Profile = ({ token, loggedIn, userId }) => {
                     Delete
                   </button>
                 ) : null}
+                <hr />
               </div>
             );
           } else {
