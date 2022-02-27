@@ -31,6 +31,8 @@ const Account = ({ setToken, setGuest, setLoggedIn, setUserId, loggedIn }) => {
             setLoggedIn(true);
             history.push("/");
           }
+          setUserName("");
+          setPassword("");
         });
     } catch (error) {
       console.log(error);

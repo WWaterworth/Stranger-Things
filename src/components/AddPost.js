@@ -27,7 +27,13 @@ const AddPost = ({ token, posts, setPosts }) => {
       }),
     })
       .then((response) => response.json())
-      .then((result) => {})
+      .then((result) => {
+        console.log(result);
+        setTitle("");
+        setDescription("");
+        setPrice("");
+        setLocation("");
+      })
       .catch(console.error);
 
     const reRenderPosts = async () => {
