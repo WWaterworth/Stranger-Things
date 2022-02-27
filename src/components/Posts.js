@@ -49,7 +49,6 @@ const Posts = ({ posts, setPosts, loggedIn, userId, token }) => {
       author: { username },
     } = post;
     const toCheck = [title, description, username];
-    console.log(username);
 
     for (const field of toCheck) {
       if (field.toLowerCase().includes(SearchTerm.toLowerCase())) {
